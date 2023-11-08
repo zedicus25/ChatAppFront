@@ -1,24 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import axios from 'axios';
-import api from './apiAccess';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './components/LoginComponent';
+import RegistrationScreen from './components/RegistrationComponent';
+import AllChats from './components/AllChats';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await api.getForecast();
-      console.log(data);
-    }
-    fetchData();
-  }, []);
+  
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="AllChats" component={AllChats}></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
